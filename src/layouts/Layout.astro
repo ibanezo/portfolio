@@ -1,0 +1,30 @@
+---
+import "@fontsource-variable/inter";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Martin Shterjoski | Software Engineer",
+  description = "Software Engineer with 7+ years of experience in the Backend field. Fast, creative and deadline oriented.",
+} = Astro.props;
+---
+
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+  </head>
+  <body class="bg-slate-950 text-slate-200 font-sans antialiased">
+    <slot />
+  </body>
+</html>
