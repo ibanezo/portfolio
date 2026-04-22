@@ -4,7 +4,7 @@ export const profile = {
   company: "ti&m",
   location: "Düsseldorf, Germany",
   about:
-    "Software Engineer with 7+ years of experience in the Backend field. Fast, creative and deadline oriented.",
+    "Software Engineer with 7+ years of experience in the Backend field. Fast, creative and deadline oriented. Passionate about AI Agents and leveraging tools like Claude Code to supercharge development workflows.",
   quote:
     "Learn as you will live forever, live as you will die tomorrow.",
   github: "https://github.com/ibanezo",
@@ -29,7 +29,9 @@ export const experience: ExperienceEntry[] = [
     type: "Full-time",
     period: "Mar 2023 – Present",
     location: "Düsseldorf, Germany",
-    bullets: [],
+    bullets: [
+      "Working with AI Agents and tools like Claude Code to enhance development workflows",
+    ],
   },
   {
     company: "Accenture",
@@ -155,6 +157,14 @@ export const skills: SkillCategory[] = [
     label: "Messaging",
     items: [{ name: "Apache Kafka", icon: "devicon:apachekafka" }],
   },
+  {
+    label: "AI & Agents",
+    items: [
+      { name: "Claude Code", icon: "devicon:aiassistant" },
+      { name: "AI Agents", icon: "devicon:aiassistant" },
+      { name: "Prompt Engineering", icon: "devicon:aiassistant" },
+    ],
+  },
 ];
 
 export interface ProficiencyItem {
@@ -171,6 +181,7 @@ export const techProficiency: ProficiencyItem[] = [
   { name: "PostgreSQL", level: 80 },
   { name: "Terraform", level: 70 },
   { name: "Apache Kafka", level: 70 },
+  { name: "AI Agents & LLMs", level: 75 },
   { name: "Azure", level: 65 },
   { name: "Vue.js", level: 60 },
 ];
