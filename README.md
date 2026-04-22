@@ -1,43 +1,108 @@
-# Astro Starter Kit: Minimal
+# Martin Shterjoski — Portfolio
 
-```sh
-npm create astro@latest -- --template minimal
+Personal portfolio website built with Astro, Tailwind CSS, and TypeScript.
+
+**Live:** [ibanezo.github.io/portfolio](https://ibanezo.github.io/portfolio)
+
+## Tech Stack
+
+- **Astro 6** — Static site generator, zero JS by default
+- **Tailwind CSS v4** — Utility-first styling via Vite plugin
+- **TypeScript** — Type-safe data layer
+- **astro-icon** + **devicon** — Technology icons
+- **GitHub Pages** — Hosting via GitHub Actions
+
+## Features
+
+- Dark/Light mode toggle with system preference detection
+- Responsive design (mobile, tablet, desktop)
+- DE/EN language toggle
+- Scroll-triggered animations
+- Blog with Astro Content Collections
+- Interactive terminal component
+- GitHub repos fetched at build time
+- Auto-generated CV page (`/cv/`)
+- SEO: sitemap, robots.txt, JSON-LD, Open Graph
+- Optimized images (WebP via Astro Image)
+
+## Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Start dev server
+npm run dev
+
+# Open in browser
+open http://localhost:4321/portfolio/
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Build & Preview
 
-## 🚀 Project Structure
+```bash
+# Production build
+npm run build
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+# Preview the build locally
+npm run preview
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Project Structure
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```
+src/
+  data/
+    profile.ts          # All personal data (experience, skills, certs)
+    translations.ts     # DE/EN translations
+  components/           # Astro components (Hero, Experience, Skills, etc.)
+  layouts/              # Base layout + blog post layout
+  pages/
+    index.astro         # Main portfolio page
+    cv.astro            # Auto-generated CV page
+    blog/               # Blog index + post pages
+  content/
+    blog/               # Markdown blog posts
+  styles/
+    global.css          # Tailwind config + animations
+  assets/
+    profile.jpg         # Profile photo (processed by Astro)
+public/
+  cv/                   # Downloadable CV (PDF)
+  favicon.svg
+  robots.txt
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+## How to Update Content
 
-## 🧞 Commands
+All personal data lives in **`src/data/profile.ts`**. Edit this single file to update:
 
-All commands are run from the root of the project, from a terminal:
+- Name, title, company, location
+- About text and quote
+- Work experience (companies, roles, bullet points)
+- Certifications
+- Technical skills and proficiency levels
+- Testimonials (currently hidden, uncomment in `index.astro` when ready)
+- Contact info (email, phone)
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Translations are in **`src/data/translations.ts`**.
 
-## 👀 Want to learn more?
+Blog posts go in **`src/content/blog/`** as Markdown files.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Deployment
+
+Pushes to `main` trigger automatic deployment via GitHub Actions.
+
+To deploy manually:
+
+```bash
+git add -A
+git commit -m "update portfolio"
+git push origin main
+```
+
+The site deploys to GitHub Pages at `https://ibanezo.github.io/portfolio/`.
+
+## License
+
+MIT
