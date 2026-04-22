@@ -39,12 +39,14 @@ const commandData = JSON.stringify({
           class="p-4 h-72 overflow-y-auto font-mono text-sm leading-relaxed"
         >
           <div class="text-accent-400 mb-3">Welcome! Type a command or click one below.</div>
-          <div class="text-slate-500" style="white-space:pre-wrap">Available commands:
-  <span class="text-white">about</span>       — Who I am
-  <span class="text-white">skills</span>      — My tech stack
-  <span class="text-white">experience</span>  — Work history
-  <span class="text-white">contact</span>     — Get in touch
-  <span class="text-white">clear</span>       — Clear terminal</div>
+          <div class="flex flex-wrap gap-2 mb-2">
+            <button class="term-cmd px-2.5 py-1 text-xs rounded bg-slate-800 hover:bg-slate-700 text-accent-400 border border-slate-700 hover:border-accent-500/50 transition-colors cursor-pointer" data-cmd="about">about</button>
+            <button class="term-cmd px-2.5 py-1 text-xs rounded bg-slate-800 hover:bg-slate-700 text-accent-400 border border-slate-700 hover:border-accent-500/50 transition-colors cursor-pointer" data-cmd="skills">skills</button>
+            <button class="term-cmd px-2.5 py-1 text-xs rounded bg-slate-800 hover:bg-slate-700 text-accent-400 border border-slate-700 hover:border-accent-500/50 transition-colors cursor-pointer" data-cmd="experience">experience</button>
+            <button class="term-cmd px-2.5 py-1 text-xs rounded bg-slate-800 hover:bg-slate-700 text-accent-400 border border-slate-700 hover:border-accent-500/50 transition-colors cursor-pointer" data-cmd="contact">contact</button>
+            <button class="term-cmd px-2.5 py-1 text-xs rounded bg-slate-800 hover:bg-slate-700 text-accent-400 border border-slate-700 hover:border-accent-500/50 transition-colors cursor-pointer" data-cmd="help">help</button>
+            <button class="term-cmd px-2.5 py-1 text-xs rounded bg-slate-800 hover:bg-slate-700 text-accent-400 border border-slate-700 hover:border-accent-500/50 transition-colors cursor-pointer" data-cmd="clear">clear</button>
+          </div>
         </div>
 
         {/* Input */}
@@ -125,8 +127,17 @@ const commandData = JSON.stringify({
     input.value = "";
     if (!cmd) return;
 
-    addLine(`<span class="text-accent-400">$</span> <span class="text-white">${cmd}</span>`);
+    if (commands[cmd]) {
+      runCommand(cmd);
+    } else {
+      addLine(`<span class="text-accent-400">$</span> <span class="text-white">${cmd}</span>`);
+      addLine(`<span class="text-red-400">Command not found: ${cmd}. Type 'help' for available commands.</span>`);
+      addLine("");
+    }
+  });
 
+  function runCommand(cmd) {
+    addLine(`<span class="text-accent-400">$</span> <span class="text-white">${cmd}</span>`);
     if (commands[cmd]) {
       const result = commands[cmd]();
       if (result === "__CLEAR__") {
@@ -134,11 +145,16 @@ const commandData = JSON.stringify({
       } else {
         addLine(`<span class="text-slate-400">${result}</span>`);
       }
-    } else {
-      addLine(`<span class="text-red-400">Command not found: ${cmd}. Type 'help' for available commands.</span>`);
     }
-
     addLine("");
+  }
+
+  document.querySelectorAll(".term-cmd").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const cmd = btn.getAttribute("data-cmd");
+      if (cmd) runCommand(cmd);
+      input.focus();
+    });
   });
 
   input.focus();
