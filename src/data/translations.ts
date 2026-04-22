@@ -96,7 +96,7 @@ export const translations = {
 
     // Terminal
     "terminal.title": "Terminal",
-    "terminal.subtitle": "Try typing a command below.",
+    "terminal.subtitle": "An interactive way to explore my experience, skills, and background. Type a command or click one of the options below.",
 
     // Contact
     "contact.title": "Contact",
@@ -206,7 +206,7 @@ export const translations = {
 
     // Terminal
     "terminal.title": "Terminal",
-    "terminal.subtitle": "Versuche einen Befehl einzugeben.",
+    "terminal.subtitle": "Eine interaktive Möglichkeit, meine Erfahrungen, Skills und meinen Hintergrund zu erkunden. Gib einen Befehl ein oder klicke auf eine der Optionen unten.",
 
     // Contact
     "contact.title": "Kontakt",
