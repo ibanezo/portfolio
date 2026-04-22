@@ -1,0 +1,145 @@
+---
+import { profile } from "../data/profile";
+
+const commandData = JSON.stringify({
+  name: profile.name,
+  title: profile.title,
+  company: profile.company,
+  location: profile.location,
+  about: profile.about,
+  email: profile.email,
+  phone: profile.phone,
+  github: profile.github,
+  linkedin: profile.linkedin,
+});
+---
+
+<section class="py-24 md:py-32 reveal">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+      <span data-i18n="terminal.title">Terminal</span><span class="text-accent-400">.</span>
+    </h2>
+    <p class="text-slate-500 dark:text-slate-400 mb-16 max-w-xl" data-i18n="terminal.subtitle">
+      Try typing a command below.
+    </p>
+
+    <div class="max-w-2xl">
+      <div class="bg-slate-900 dark:bg-slate-950 border border-slate-700 dark:border-slate-800 rounded-xl overflow-hidden shadow-2xl">
+        {/* Title bar */}
+        <div class="flex items-center gap-2 px-4 py-3 bg-slate-800 dark:bg-slate-900 border-b border-slate-700 dark:border-slate-800">
+          <div class="w-3 h-3 rounded-full bg-red-500"></div>
+          <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+          <div class="w-3 h-3 rounded-full bg-green-500"></div>
+          <span class="ml-2 text-xs text-slate-500 font-mono">martin@portfolio ~ %</span>
+        </div>
+
+        {/* Terminal body */}
+        <div
+          id="terminal-body"
+          class="p-4 h-72 overflow-y-auto font-mono text-sm leading-relaxed"
+        >
+          <div class="text-accent-400 mb-3">Welcome! Type a command or click one below.</div>
+          <div class="text-slate-500" style="white-space:pre-wrap">Available commands:
+  <span class="text-white">about</span>       — Who I am
+  <span class="text-white">skills</span>      — My tech stack
+  <span class="text-white">experience</span>  — Work history
+  <span class="text-white">contact</span>     — Get in touch
+  <span class="text-white">clear</span>       — Clear terminal</div>
+        </div>
+
+        {/* Input */}
+        <div class="flex items-center gap-2 px-4 py-3 border-t border-slate-700 dark:border-slate-800 bg-slate-800/50 dark:bg-slate-900/50">
+          <span class="text-accent-400 font-mono text-sm">$</span>
+          <input
+            id="terminal-input"
+            type="text"
+            class="flex-1 bg-transparent text-white font-mono text-sm outline-none placeholder:text-slate-600"
+            placeholder="Type a command..."
+            autocomplete="off"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ commandData }}>
+  const data = JSON.parse(commandData);
+  const body = document.getElementById("terminal-body");
+  const input = document.getElementById("terminal-input");
+
+  const commands = {
+    help: () =>
+      `<span class="text-slate-500">Available commands:</span>
+  <span class="text-white">about</span>       — Who I am
+  <span class="text-white">skills</span>      — My tech stack
+  <span class="text-white">experience</span>  — Work history
+  <span class="text-white">contact</span>     — Get in touch
+  <span class="text-white">clear</span>       — Clear terminal`,
+
+    about: () =>
+      `<span class="text-accent-400">${data.name}</span>
+  ${data.title} at <span class="text-white">${data.company}</span>
+  ${data.location}
+
+  ${data.about}`,
+
+    skills: () =>
+      `<span class="text-accent-400">Technical Stack:</span>
+  <span class="text-white">Languages:</span>     Java, Kotlin
+  <span class="text-white">Frameworks:</span>    Spring Boot, Quarkus
+  <span class="text-white">Databases:</span>     PostgreSQL, MySQL, Oracle, Elasticsearch
+  <span class="text-white">DevOps:</span>        Docker, Kubernetes, OpenShift, Terraform
+  <span class="text-white">Cloud:</span>         AWS, Azure
+  <span class="text-white">Messaging:</span>     Apache Kafka
+  <span class="text-white">AI:</span>            Claude Code, AI Agents, Prompt Engineering`,
+
+    experience: () =>
+      `<span class="text-accent-400">Work Experience:</span>
+  <span class="text-white">ti&m</span>              Intermediate Software Engineer  2023–Present
+  <span class="text-white">Accenture</span>          Software Engineer Analyst       2021–2023
+  <span class="text-white">Asseco SEE</span>         Software Engineer               2019–2021
+  <span class="text-white">Freelance</span>          Frontend Developer              2020`,
+
+    contact: () =>
+      `<span class="text-accent-400">Contact:</span>
+  <span class="text-white">Email:</span>    ${data.email}
+  <span class="text-white">Phone:</span>    ${data.phone}
+  <span class="text-white">GitHub:</span>   ${data.github}
+  <span class="text-white">LinkedIn:</span> ${data.linkedin}`,
+
+    clear: () => "__CLEAR__",
+  };
+
+  function addLine(html) {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    div.style.whiteSpace = "pre-wrap";
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter") return;
+    const cmd = input.value.trim().toLowerCase();
+    input.value = "";
+    if (!cmd) return;
+
+    addLine(`<span class="text-accent-400">$</span> <span class="text-white">${cmd}</span>`);
+
+    if (commands[cmd]) {
+      const result = commands[cmd]();
+      if (result === "__CLEAR__") {
+        body.innerHTML = `<div class="text-accent-400 mb-2">Terminal cleared.</div>`;
+      } else {
+        addLine(`<span class="text-slate-400">${result}</span>`);
+      }
+    } else {
+      addLine(`<span class="text-red-400">Command not found: ${cmd}. Type 'help' for available commands.</span>`);
+    }
+
+    addLine("");
+  });
+
+  input.focus();
+</script>

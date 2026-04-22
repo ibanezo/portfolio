@@ -1,0 +1,347 @@
+---
+import "@fontsource-variable/inter";
+import { profile, experience, certifications, skills, techProficiency } from "../data/profile";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CV — {profile.name}</title>
+    <style>
+      :root {
+        --accent: #059669;
+        --text: #0f172a;
+        --muted: #475569;
+        --light: #94a3b8;
+        --border: #e2e8f0;
+        --bg: #ffffff;
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        font-family: "Inter Variable", "Inter", system-ui, sans-serif;
+        color: var(--text);
+        background: #f1f5f9;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .page {
+        max-width: 800px;
+        margin: 2rem auto;
+        background: var(--bg);
+        padding: 3rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+
+      /* Print button - hidden on print */
+      .print-bar {
+        max-width: 800px;
+        margin: 1rem auto 0;
+        display: flex;
+        gap: 0.75rem;
+        justify-content: flex-end;
+      }
+      .print-bar a, .print-bar button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+        font-family: inherit;
+        font-weight: 500;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.15s;
+      }
+      .print-bar button {
+        background: var(--accent);
+        color: white;
+        border: none;
+      }
+      .print-bar button:hover { opacity: 0.9; }
+      .print-bar a {
+        background: white;
+        color: var(--muted);
+        border: 1px solid var(--border);
+      }
+      .print-bar a:hover { color: var(--text); border-color: var(--muted); }
+
+      /* Header */
+      .header { margin-bottom: 1.5rem; }
+      .header h1 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.15rem;
+      }
+      .header .title {
+        font-size: 1rem;
+        color: var(--accent);
+        font-weight: 500;
+        margin-bottom: 0.75rem;
+      }
+      .header .contact-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem 1.25rem;
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+      .header .contact-row a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+      .header .contact-row a:hover { color: var(--accent); }
+
+      /* Section */
+      .section {
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border);
+      }
+      .section-title {
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--accent);
+        margin-bottom: 0.75rem;
+      }
+
+      /* Summary */
+      .summary {
+        font-size: 0.85rem;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      /* Experience */
+      .exp-entry { margin-bottom: 1.25rem; }
+      .exp-entry:last-child { margin-bottom: 0; }
+      .exp-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+        margin-bottom: 0.15rem;
+      }
+      .exp-header h3 {
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+      .exp-header .date {
+        font-size: 0.75rem;
+        color: var(--light);
+        white-space: nowrap;
+      }
+      .exp-company {
+        font-size: 0.8rem;
+        color: var(--muted);
+        margin-bottom: 0.35rem;
+      }
+      .exp-bullets {
+        list-style: none;
+        padding: 0;
+      }
+      .exp-bullets li {
+        font-size: 0.8rem;
+        color: var(--muted);
+        padding-left: 1rem;
+        position: relative;
+        margin-bottom: 0.2rem;
+        line-height: 1.45;
+      }
+      .exp-bullets li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.55rem;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--accent);
+        opacity: 0.5;
+      }
+
+      /* Skills grid */
+      .skills-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+      }
+      .skill-tag {
+        font-size: 0.72rem;
+        padding: 0.2rem 0.55rem;
+        background: #f1f5f9;
+        border-radius: 0.25rem;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      /* Certifications */
+      .cert-list { list-style: none; padding: 0; }
+      .cert-list li {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 0.8rem;
+        padding: 0.3rem 0;
+      }
+      .cert-list li .cert-name { font-weight: 500; color: var(--text); }
+      .cert-list li .cert-issuer { color: var(--muted); font-size: 0.75rem; }
+      .cert-list li .cert-date {
+        font-size: 0.72rem;
+        color: var(--light);
+        white-space: nowrap;
+        margin-left: 1rem;
+      }
+
+      /* Education */
+      .edu h3 { font-size: 0.9rem; font-weight: 600; }
+      .edu p { font-size: 0.8rem; color: var(--muted); }
+      .edu .date { font-size: 0.75rem; color: var(--light); }
+
+      /* Languages row */
+      .lang-row {
+        display: flex;
+        gap: 2rem;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+      .lang-row strong { color: var(--text); font-weight: 500; }
+
+      /* Two-column for skills + certs side by side */
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+
+      /* Print styles */
+      @media print {
+        body { background: white; }
+        .page {
+          margin: 0;
+          padding: 2rem 2.5rem;
+          box-shadow: none;
+          max-width: none;
+        }
+        .print-bar { display: none; }
+        .section { break-inside: avoid; }
+        .exp-entry { break-inside: avoid; }
+      }
+
+      @media (max-width: 640px) {
+        .page { margin: 0; padding: 1.5rem; }
+        .two-col { grid-template-columns: 1fr; }
+        .exp-header { flex-direction: column; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="print-bar">
+      <a href={`${import.meta.env.BASE_URL}/`}>
+        &larr; Back to portfolio
+      </a>
+      <button onclick="window.print()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+        Print / Save as PDF
+      </button>
+    </div>
+
+    <div class="page">
+      {/* Header */}
+      <div class="header">
+        <h1>{profile.name}</h1>
+        <div class="title">{profile.title} at {profile.company} · {profile.location}</div>
+        <div class="contact-row">
+          <span>{profile.email}</span>
+          <span>{profile.phone}</span>
+          <a href={profile.linkedin}>LinkedIn</a>
+          <a href={profile.github}>GitHub</a>
+        </div>
+      </div>
+
+      {/* Summary */}
+      <div class="section">
+        <div class="section-title">Professional Summary</div>
+        <p class="summary">
+          Backend Software Engineer with 7+ years of experience designing microservice architectures, event-driven systems, and cloud-native applications across public sector, healthcare, and financial services. Proficient in AI-augmented development with tools like Claude Code. Strong focus on API design, process digitalization, and DevOps practices.
+        </p>
+      </div>
+
+      {/* Experience */}
+      <div class="section">
+        <div class="section-title">Work Experience</div>
+        {experience.map((entry) => (
+          <div class="exp-entry">
+            <div class="exp-header">
+              <h3>{entry.title}</h3>
+              <span class="date">{entry.period}</span>
+            </div>
+            <div class="exp-company">{entry.company} · {entry.type} · {entry.location}</div>
+            {entry.bullets.length > 0 && (
+              <ul class="exp-bullets">
+                {entry.bullets.map((b) => <li>{b}</li>)}
+              </ul>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Two column: Skills + Certifications */}
+      <div class="section">
+        <div class="two-col">
+          <div>
+            <div class="section-title">Technical Skills</div>
+            <div class="skills-grid">
+              {skills.flatMap((cat) => cat.items).map((item) => (
+                <span class="skill-tag">{item.name}</span>
+              ))}
+            </div>
+          </div>
+          <div>
+            <div class="section-title">Certifications</div>
+            <ul class="cert-list">
+              {certifications.map((cert) => (
+                <li>
+                  <div>
+                    <span class="cert-name">{cert.name}</span>
+                    <br />
+                    <span class="cert-issuer">{cert.issuer}</span>
+                  </div>
+                  <span class="cert-date">{cert.date}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Two column: Education + Languages */}
+      <div class="section">
+        <div class="two-col">
+          <div class="edu">
+            <div class="section-title">Education</div>
+            <h3>Bachelor's Degree — Computer Science and Engineering</h3>
+            <p>Ss. Cyril and Methodius University — Faculty of Computer Science and Engineering, Skopje</p>
+            <span class="date">2015 – 2020</span>
+          </div>
+          <div>
+            <div class="section-title">Languages</div>
+            <div class="lang-row">
+              <span><strong>English</strong> — Fluent</span>
+              <span><strong>German</strong> — Fluent</span>
+              <span><strong>Macedonian</strong> — Native</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

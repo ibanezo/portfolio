@@ -1,6 +1,8 @@
 ---
 import "@fontsource-variable/inter";
 import "../styles/global.css";
+import { profile } from "../data/profile";
+import { translations } from "../data/translations";
 
 interface Props {
   title?: string;
@@ -11,6 +13,20 @@ const {
   title = "Martin Shterjoski | Software Engineer",
   description = "Software Engineer with 7+ years of experience in the Backend field. Fast, creative and deadline oriented.",
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(`${import.meta.env.BASE_URL}/favicon.svg`, Astro.site);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  jobTitle: profile.title,
+  worksFor: { "@type": "Organization", name: profile.company },
+  url: canonicalURL.href,
+  sameAs: [profile.github, profile.linkedin],
+  address: { "@type": "PostalAddress", addressLocality: "Düsseldorf", addressCountry: "DE" },
+};
 ---
 
 <html lang="en" class="dark">
@@ -18,13 +34,53 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL.href} />
+
+    {/* Open Graph */}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:image" content={ogImage.href} />
+    <meta property="og:site_name" content="Martin Shterjoski" />
+
+    {/* Twitter */}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    {/* JSON-LD */}
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}/favicon.svg`} />
+
+    {/* i18n translations */}
+    <script is:inline define:vars={{ translations }}>
+      window.__i18n = translations;
+    </script>
+
+    {/* Theme: prevent flash of wrong theme */}
+    <script is:inline>
+      (function() {
+        const theme = localStorage.getItem("theme");
+        if (theme === "light") {
+          document.documentElement.classList.remove("dark");
+        } else if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+          document.documentElement.classList.remove("dark");
+        }
+      })();
+    </script>
+
+    {/* Analytics: Uncomment and sign up at https://plausible.io to enable */}
+    {/* <script defer data-domain="ibanezo.github.io" src="https://plausible.io/js/script.js"></script> */}
   </head>
-  <body class="bg-slate-950 text-slate-200 font-sans antialiased">
+  <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans antialiased transition-colors">
     <slot />
+    <script>
+      import "../scripts/scroll-reveal.ts";
+    </script>
   </body>
 </html>

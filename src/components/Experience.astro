@@ -2,55 +2,50 @@
 import { experience } from "../data/profile";
 ---
 
-<section id="experience" class="py-24 md:py-32">
+<section id="experience" class="py-24 md:py-32 reveal-left">
   <div class="max-w-5xl mx-auto px-6">
-    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-      Experience<span class="text-accent-400">.</span>
+    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+      <span data-i18n="experience.title">Experience</span><span class="text-accent-400">.</span>
     </h2>
-    <p class="text-slate-400 mb-16 max-w-xl">
-      7+ years building backend systems across enterprise and startup
-      environments.
+    <p class="text-slate-500 dark:text-slate-400 mb-16 max-w-xl" data-i18n="experience.subtitle">
+      7+ years building backend systems across enterprise and startup environments.
     </p>
 
     <div class="relative">
-      {/* Timeline line */}
-      <div
-        class="absolute left-[7px] top-2 bottom-2 w-px bg-slate-800"
-      ></div>
+      <div class="absolute left-[7px] top-2 bottom-2 w-px bg-slate-200 dark:bg-slate-800"></div>
 
       <div class="space-y-12">
         {experience.map((entry, i) => (
           <div class="relative pl-10">
-            {/* Timeline dot */}
             <div
               class:list={[
                 "absolute left-0 top-2 w-[15px] h-[15px] rounded-full border-2",
                 i === 0
                   ? "bg-accent-500 border-accent-400"
-                  : "bg-slate-900 border-slate-700",
+                  : "bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700",
               ]}
             />
 
-            <div class="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-slate-700 transition-colors">
+            <div class="bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 hover:border-slate-300 dark:hover:border-slate-700 transition-colors">
               <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
                 <div>
-                  <h3 class="text-lg font-semibold text-white">
+                  <h3 class="text-lg font-semibold text-slate-900 dark:text-white" data-i18n={`exp.${i}.title`}>
                     {entry.title}
                   </h3>
-                  <p class="text-accent-400 font-medium">{entry.company}</p>
+                  <p class="text-accent-500 dark:text-accent-400 font-medium">{entry.company} · <span data-i18n={`exp.${i}.type`}>{entry.type}</span></p>
                 </div>
                 <div class="text-sm text-slate-500 mt-1 md:mt-0 md:text-right">
-                  <p>{entry.period}</p>
-                  <p>{entry.location}</p>
+                  <p data-i18n={`exp.${i}.period`}>{entry.period}</p>
+                  <p data-i18n={`exp.${i}.location`}>{entry.location}</p>
                 </div>
               </div>
 
               {entry.bullets.length > 0 && (
                 <ul class="mt-4 space-y-2">
-                  {entry.bullets.map((bullet) => (
-                    <li class="flex items-start gap-3 text-sm text-slate-400">
+                  {entry.bullets.map((bullet, j) => (
+                    <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                       <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent-500/60 shrink-0" />
-                      {bullet}
+                      <span data-i18n={`exp.${i}.b${j}`}>{bullet}</span>
                     </li>
                   ))}
                 </ul>

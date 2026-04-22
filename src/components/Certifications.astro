@@ -2,31 +2,27 @@
 import { certifications } from "../data/profile";
 ---
 
-<section id="certifications" class="py-24 md:py-32">
+<section id="certifications" class="py-24 md:py-32 reveal">
   <div class="max-w-5xl mx-auto px-6">
-    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-      Certifications<span class="text-accent-400">.</span>
+    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+      <span data-i18n="certifications.title">Certifications</span><span class="text-accent-400">.</span>
     </h2>
-    <p class="text-slate-400 mb-16 max-w-xl">
+    <p class="text-slate-500 dark:text-slate-400 mb-16 max-w-xl" data-i18n="certifications.subtitle">
       Industry-recognized credentials validating my expertise.
     </p>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {certifications.map((cert) => (
-        <div class="relative bg-slate-900/50 border border-slate-800 rounded-xl p-6 pl-8 hover:border-slate-700 transition-colors">
-          {/* Accent left border */}
+        <div class="relative bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 pl-8 hover:border-slate-300 dark:hover:border-slate-700 transition-colors" data-stagger>
           <div class="absolute left-0 top-4 bottom-4 w-1 bg-accent-500 rounded-full" />
-
           <div class="flex items-start justify-between gap-4">
             <div>
-              <h3 class="text-base font-semibold text-white leading-snug">
+              <h3 class="text-base font-semibold text-slate-900 dark:text-white leading-snug">
                 {cert.name}
               </h3>
-              <p class="text-sm text-slate-400 mt-1">{cert.issuer}</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">{cert.issuer}</p>
             </div>
-            <span class="text-xs text-slate-500 whitespace-nowrap mt-0.5">
-              {cert.date}
-            </span>
+            <span class="text-xs text-slate-500 whitespace-nowrap mt-0.5">{cert.date}</span>
           </div>
         </div>
       ))}

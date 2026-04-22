@@ -1,0 +1,61 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<Layout title="Blog | Martin Shterjoski" description="Thoughts on backend engineering, AI agents, and software development.">
+  <div class="pt-24 pb-16">
+    <div class="max-w-3xl mx-auto px-6">
+      <a
+        href={`${import.meta.env.BASE_URL}/`}
+        class="inline-flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 hover:text-accent-500 dark:hover:text-accent-400 transition-colors mb-8"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+        </svg>
+        Back to portfolio
+      </a>
+
+      <h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+        Blog<span class="text-accent-400">.</span>
+      </h1>
+      <p class="text-slate-500 dark:text-slate-400 mb-16 max-w-xl">
+        Thoughts on backend engineering, AI agents, and software development.
+      </p>
+
+      <div class="space-y-8">
+        {posts.map((post) => (
+          <a
+            href={`${import.meta.env.BASE_URL}/blog/${post.id}/`}
+            class="group block bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 hover:border-accent-500/30 transition-colors"
+          >
+            <time class="text-xs text-accent-500 dark:text-accent-400 font-medium">
+              {post.data.date.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </time>
+            <h2 class="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-accent-500 dark:group-hover:text-accent-400 transition-colors mt-1 mb-2">
+              {post.data.title}
+            </h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+              {post.data.description}
+            </p>
+            <div class="flex flex-wrap gap-2 mt-3">
+              {post.data.tags.map((tag) => (
+                <span class="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>

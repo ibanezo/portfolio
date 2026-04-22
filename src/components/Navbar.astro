@@ -1,64 +1,103 @@
 ---
 const links = [
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Skills", href: "#skills" },
-  { label: "Certifications", href: "#certifications" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", href: "#about", i18n: "nav.about" },
+  { label: "Experience", href: "#experience", i18n: "nav.experience" },
+  { label: "Skills", href: "#skills", i18n: "nav.skills" },
+  { label: "Certifications", href: "#certifications", i18n: "nav.certifications" },
+  { label: "Projects", href: "#projects", i18n: "nav.projects" },
+  { label: "Contact", href: "#contact", i18n: "nav.contact" },
+  { label: "Blog", href: `${import.meta.env.BASE_URL}/blog/`, i18n: "nav.blog" },
 ];
 ---
 
 <nav
-  class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-slate-950/80 border-b border-slate-800/50"
+  class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-slate-50/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800/50 transition-colors"
 >
   <div class="max-w-5xl mx-auto px-6 flex items-center justify-between h-16">
-    <a href="#about" class="text-lg font-semibold text-white tracking-tight">
+    <a href="#about" class="text-lg font-semibold text-slate-900 dark:text-white tracking-tight">
       MS<span class="text-accent-400">.</span>
     </a>
 
-    {/* Desktop nav */}
-    <ul class="hidden md:flex items-center gap-8">
+    <ul class="hidden md:flex items-center gap-6">
       {links.map((link) => (
         <li>
           <a
             href={link.href}
-            class="text-sm text-slate-400 hover:text-white transition-colors"
+            class="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+            data-i18n={link.i18n}
           >
             {link.label}
           </a>
         </li>
       ))}
+      <li>
+        <button
+          id="lang-toggle"
+          class="px-2 py-1 text-xs font-mono font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-300 dark:border-slate-700 rounded transition-colors"
+          aria-label="Toggle language"
+        >
+          EN
+        </button>
+      </li>
+      <li>
+        <button
+          id="theme-toggle"
+          class="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+          aria-label="Toggle theme"
+        >
+          <svg class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <svg class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        </button>
+      </li>
     </ul>
 
-    {/* Mobile toggle */}
-    <button
-      id="menu-toggle"
-      class="md:hidden text-slate-400 hover:text-white transition-colors"
-      aria-label="Toggle navigation menu"
-    >
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16"
-        />
-      </svg>
-    </button>
+    <div class="flex items-center gap-2 md:hidden">
+      <button
+        id="lang-toggle-mobile"
+        class="px-2 py-1 text-xs font-mono font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-300 dark:border-slate-700 rounded transition-colors"
+        aria-label="Toggle language"
+      >
+        EN
+      </button>
+      <button
+        id="theme-toggle-mobile"
+        class="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+        aria-label="Toggle theme"
+      >
+        <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+      </button>
+      <button
+        id="menu-toggle"
+        class="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+        aria-label="Toggle navigation menu"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
   </div>
 
-  {/* Mobile menu */}
   <div
     id="mobile-menu"
-    class="hidden md:hidden border-t border-slate-800/50 bg-slate-950/95 backdrop-blur-md"
+    class="hidden md:hidden border-t border-slate-200 dark:border-slate-800/50 bg-slate-50/95 dark:bg-slate-950/95 backdrop-blur-md transition-colors"
   >
     <ul class="flex flex-col px-6 py-4 gap-4">
       {links.map((link) => (
         <li>
           <a
             href={link.href}
-            class="mobile-link text-sm text-slate-400 hover:text-white transition-colors"
+            class="mobile-link text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+            data-i18n={link.i18n}
           >
             {link.label}
           </a>
@@ -69,16 +108,54 @@ const links = [
 </nav>
 
 <script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.classList.contains("dark");
+    if (isDark) {
+      html.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    } else {
+      html.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    }
+  }
+
+  document.getElementById("theme-toggle")?.addEventListener("click", toggleTheme);
+  document.getElementById("theme-toggle-mobile")?.addEventListener("click", toggleTheme);
+
+  // Language toggle
+  function toggleLang() {
+    const current = localStorage.getItem("lang") || "en";
+    const next = current === "en" ? "de" : "en";
+    localStorage.setItem("lang", next);
+    applyLang(next);
+  }
+
+  function applyLang(lang: string) {
+    document.documentElement.setAttribute("lang", lang);
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const key = el.getAttribute("data-i18n");
+      if (key && (window as any).__i18n?.[lang]?.[key]) {
+        el.textContent = (window as any).__i18n[lang][key];
+      }
+    });
+    document.querySelectorAll("#lang-toggle, #lang-toggle-mobile").forEach((btn) => {
+      btn.textContent = lang.toUpperCase();
+    });
+  }
+
+  document.getElementById("lang-toggle")?.addEventListener("click", toggleLang);
+  document.getElementById("lang-toggle-mobile")?.addEventListener("click", toggleLang);
+
+  // Apply saved language on load
+  const savedLang = localStorage.getItem("lang") || "en";
+  if (savedLang !== "en") applyLang(savedLang);
+
+  // Mobile menu
   const toggle = document.getElementById("menu-toggle");
   const menu = document.getElementById("mobile-menu");
-
-  toggle?.addEventListener("click", () => {
-    menu?.classList.toggle("hidden");
-  });
-
+  toggle?.addEventListener("click", () => menu?.classList.toggle("hidden"));
   document.querySelectorAll(".mobile-link").forEach((link) => {
-    link.addEventListener("click", () => {
-      menu?.classList.add("hidden");
-    });
+    link.addEventListener("click", () => menu?.classList.add("hidden"));
   });
 </script>

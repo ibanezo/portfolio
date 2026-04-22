@@ -2,12 +2,12 @@
 import { techProficiency } from "../data/profile";
 ---
 
-<section class="py-24 md:py-32 bg-slate-900/30">
+<section class="py-24 md:py-32 bg-slate-100/50 dark:bg-slate-900/30 transition-colors reveal-right">
   <div class="max-w-5xl mx-auto px-6">
-    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-      Proficiency<span class="text-accent-400">.</span>
+    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+      <span data-i18n="proficiency.title">Proficiency</span><span class="text-accent-400">.</span>
     </h2>
-    <p class="text-slate-400 mb-16 max-w-xl">
+    <p class="text-slate-500 dark:text-slate-400 mb-16 max-w-xl" data-i18n="proficiency.subtitle">
       Relative confidence level across my core technologies.
     </p>
 
@@ -15,10 +15,10 @@ import { techProficiency } from "../data/profile";
       {techProficiency.map((item, i) => (
         <div class="group">
           <div class="flex items-center justify-between mb-2">
-            <span class="text-sm font-medium text-slate-300">{item.name}</span>
+            <span class="text-sm font-medium text-slate-700 dark:text-slate-300">{item.name}</span>
             <span class="text-xs text-slate-500">{item.level}%</span>
           </div>
-          <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+          <div class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
             <div
               class="h-full rounded-full bg-gradient-to-r from-accent-600 to-accent-400"
               style={`width: ${item.level}%; animation: grow-bar 1s ease-out ${i * 0.1}s both;`}
@@ -32,8 +32,6 @@ import { techProficiency } from "../data/profile";
 
 <style>
   @keyframes grow-bar {
-    from {
-      width: 0%;
-    }
+    from { width: 0%; }
   }
 </style>

@@ -185,6 +185,34 @@ export const skills: SkillCategory[] = [
   },
 ];
 
+export interface Testimonial {
+  quote: string;
+  author: string;
+  role: string;
+  company: string;
+}
+
+export const testimonials: Testimonial[] = [
+  {
+    quote: "Martin is a highly skilled backend engineer who consistently delivers clean, well-architected solutions. His expertise with Spring Boot and Kafka made a real impact on our project.",
+    author: "Placeholder Name",
+    role: "Tech Lead",
+    company: "ti&m",
+  },
+  {
+    quote: "A reliable team player who takes ownership of complex problems. Martin's ability to bridge the gap between architecture and implementation is exceptional.",
+    author: "Placeholder Name",
+    role: "Project Manager",
+    company: "Accenture",
+  },
+  {
+    quote: "Martin brought strong technical skills and a positive attitude to our team. His contributions to our microservice migration were invaluable.",
+    author: "Placeholder Name",
+    role: "Senior Engineer",
+    company: "Asseco SEE",
+  },
+];
+
 export interface ProficiencyItem {
   name: string;
   level: number;

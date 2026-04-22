@@ -1,0 +1,76 @@
+---
+import { profile } from "../data/profile";
+
+interface ContributionDay {
+  date: string;
+  count: number;
+  level: number;
+}
+
+let weeks: ContributionDay[][] = [];
+
+try {
+  const res = await fetch(
+    `https://github-contributions-api.jogruber.de/v4/${profile.githubUsername}?y=last`
+  );
+  const data = await res.json();
+  if (data.contributions) {
+    // Group into weeks (7 days each), take last 52 weeks
+    const days: ContributionDay[] = data.contributions;
+    const allWeeks: ContributionDay[][] = [];
+    for (let i = 0; i < days.length; i += 7) {
+      allWeeks.push(days.slice(i, i + 7));
+    }
+    weeks = allWeeks.slice(-52);
+  }
+} catch {
+  // Gracefully degrade
+}
+
+const levelColors = [
+  "bg-slate-200 dark:bg-slate-800",
+  "bg-accent-200 dark:bg-accent-700",
+  "bg-accent-300 dark:bg-accent-600",
+  "bg-accent-400 dark:bg-accent-500",
+  "bg-accent-500 dark:bg-accent-400",
+];
+---
+
+{weeks.length > 0 && (
+  <section class="py-24 md:py-32 reveal">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+        <span data-i18n="contributions.title">Contributions</span><span class="text-accent-400">.</span>
+      </h2>
+      <p class="text-slate-500 dark:text-slate-400 mb-16 max-w-xl" data-i18n="contributions.subtitle">
+        My GitHub activity over the past year.
+      </p>
+
+      <div class="overflow-x-auto pb-4">
+        <div class="flex gap-[3px] min-w-max">
+          {weeks.map((week) => (
+            <div class="flex flex-col gap-[3px]">
+              {week.map((day) => (
+                <div
+                  class:list={[
+                    "w-[11px] h-[11px] rounded-sm transition-colors",
+                    levelColors[day.level] || levelColors[0],
+                  ]}
+                  title={`${day.date}: ${day.count} contribution${day.count !== 1 ? "s" : ""}`}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 mt-4 text-xs text-slate-500">
+        <span data-i18n="contributions.less">Less</span>
+        {levelColors.map((color) => (
+          <div class:list={["w-[11px] h-[11px] rounded-sm", color]} />
+        ))}
+        <span data-i18n="contributions.more">More</span>
+      </div>
+    </div>
+  </section>
+)}

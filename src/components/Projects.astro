@@ -33,15 +33,16 @@ const langColors: Record<string, string> = {
   "C#": "#178600",
   HTML: "#e34c26",
   CSS: "#563d7c",
+  Astro: "#ff5a03",
 };
 ---
 
-<section id="projects" class="py-24 md:py-32">
+<section id="projects" class="py-24 md:py-32 reveal-scale">
   <div class="max-w-5xl mx-auto px-6">
-    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-      Projects<span class="text-accent-400">.</span>
+    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+      <span data-i18n="projects.title">Projects</span><span class="text-accent-400">.</span>
     </h2>
-    <p class="text-slate-400 mb-16 max-w-xl">
+    <p class="text-slate-500 dark:text-slate-400 mb-16 max-w-xl" data-i18n="projects.subtitle">
       Open source work and side projects on GitHub.
     </p>
 
@@ -52,29 +53,19 @@ const langColors: Record<string, string> = {
             href={repo.html_url}
             target="_blank"
             rel="noopener noreferrer"
-            class="group bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-accent-500/30 transition-colors flex flex-col"
+            class="group bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 hover:border-accent-500/30 transition-colors flex flex-col" data-stagger
           >
             <div class="flex items-center gap-2 mb-3">
-              <svg
-                class="w-4 h-4 text-slate-500"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                />
+              <svg class="w-4 h-4 text-slate-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
               </svg>
-              <h3 class="text-sm font-semibold text-white group-hover:text-accent-400 transition-colors truncate">
+              <h3 class="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-accent-500 dark:group-hover:text-accent-400 transition-colors truncate">
                 {repo.name}
               </h3>
             </div>
 
             {repo.description && (
-              <p class="text-xs text-slate-400 leading-relaxed mb-4 flex-1 line-clamp-2">
+              <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4 flex-1 line-clamp-2">
                 {repo.description}
               </p>
             )}
@@ -82,10 +73,7 @@ const langColors: Record<string, string> = {
             <div class="flex items-center gap-4 mt-auto pt-2">
               {repo.language && (
                 <span class="flex items-center gap-1.5 text-xs text-slate-500">
-                  <span
-                    class="w-2.5 h-2.5 rounded-full"
-                    style={`background-color: ${langColors[repo.language] || "#8b949e"}`}
-                  />
+                  <span class="w-2.5 h-2.5 rounded-full" style={`background-color: ${langColors[repo.language] || "#8b949e"}`} />
                   {repo.language}
                 </span>
               )}
@@ -110,16 +98,11 @@ const langColors: Record<string, string> = {
         href={profile.github}
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-accent-400 transition-colors"
+        class="inline-flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 hover:text-accent-500 dark:hover:text-accent-400 transition-colors"
       >
-        View all repositories
+        <span data-i18n="projects.viewAll">View all repositories</span>
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M17 8l4 4m0 0l-4 4m4-4H3"
-          />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
         </svg>
       </a>
     </div>
