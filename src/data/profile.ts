@@ -10,6 +10,8 @@ export const profile = {
   github: "https://github.com/ibanezo",
   githubUsername: "ibanezo",
   linkedin: "https://www.linkedin.com/in/martin-shterjoski/",
+  email: "martin.sterjoski@gmail.com",
+  phone: "+491636860351",
   repoUrl: "https://github.com/ibanezo/portfolio",
 } as const;
 
