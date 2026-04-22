@@ -32,6 +32,13 @@ export const experience: ExperienceEntry[] = [
     period: "Mar 2023 – Present",
     location: "Düsseldorf, Germany",
     bullets: [
+      "Developing microservice architectures using Java, Kotlin, Spring Boot, and Quarkus across public sector, healthcare, and finance",
+      "Designing RESTful APIs with OpenAPI for high-throughput, multi-stakeholder platforms",
+      "Building event-driven systems with Apache Kafka for real-time data processing",
+      "Automating business processes with Camunda BPM and integrating identity management via KeyCloak",
+      "Leading application migrations from Java to Kotlin and Spring Boot to Quarkus",
+      "Managing DevOps and infrastructure on Kubernetes and OpenShift with CI/CD pipelines",
+      "Driving end-to-end process digitalization for government and financial workflows",
       "Working with AI Agents and tools like Claude Code to enhance development workflows",
     ],
   },
@@ -118,17 +125,25 @@ export interface SkillCategory {
 export const skills: SkillCategory[] = [
   {
     label: "Languages",
-    items: [{ name: "Java", icon: "devicon:java" }],
+    items: [
+      { name: "Java", icon: "devicon:java" },
+      { name: "Kotlin", icon: "devicon:kotlin" },
+    ],
   },
   {
     label: "Frameworks",
-    items: [{ name: "Spring Boot", icon: "devicon:spring" }],
+    items: [
+      { name: "Spring Boot", icon: "devicon:spring" },
+      { name: "Quarkus", icon: "devicon:quarkus" },
+    ],
   },
   {
     label: "Databases",
     items: [
-      { name: "MySQL", icon: "devicon:mysql" },
       { name: "PostgreSQL", icon: "devicon:postgresql" },
+      { name: "MySQL", icon: "devicon:mysql" },
+      { name: "Oracle DB", icon: "devicon:oracle" },
+      { name: "Elasticsearch", icon: "devicon:elasticsearch" },
     ],
   },
   {
@@ -136,6 +151,7 @@ export const skills: SkillCategory[] = [
     items: [
       { name: "Docker", icon: "devicon:docker" },
       { name: "Kubernetes", icon: "devicon:kubernetes" },
+      { name: "OpenShift", icon: "devicon:redhat" },
       { name: "Jenkins", icon: "devicon:jenkins" },
       { name: "Terraform", icon: "devicon:terraform" },
     ],
@@ -177,13 +193,14 @@ export interface ProficiencyItem {
 export const techProficiency: ProficiencyItem[] = [
   { name: "Java", level: 95 },
   { name: "Spring Boot", level: 90 },
+  { name: "Kotlin", level: 80 },
   { name: "Docker", level: 85 },
-  { name: "Kubernetes", level: 80 },
-  { name: "AWS", level: 80 },
+  { name: "Kubernetes / OpenShift", level: 80 },
+  { name: "Apache Kafka", level: 80 },
   { name: "PostgreSQL", level: 80 },
-  { name: "Terraform", level: 70 },
-  { name: "Apache Kafka", level: 70 },
+  { name: "AWS", level: 75 },
   { name: "AI Agents & LLMs", level: 75 },
-  { name: "Azure", level: 65 },
-  { name: "Vue.js", level: 60 },
+  { name: "Quarkus", level: 70 },
+  { name: "Camunda BPM", level: 70 },
+  { name: "Terraform", level: 70 },
 ];
